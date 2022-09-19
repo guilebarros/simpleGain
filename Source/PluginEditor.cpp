@@ -9,6 +9,9 @@ SimpleGainAudioProcessorEditor::SimpleGainAudioProcessorEditor (SimpleGainAudioP
     gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 20);
     gainSlider.setRange(0.0f, 1.0f, 0.01f);
     gainSlider.setValue(0.5f);
+    
+    gainSlider.addListener(this);
+    
     addAndMakeVisible(gainSlider);
 
     setSize (400, 300);
@@ -28,4 +31,12 @@ void SimpleGainAudioProcessorEditor::resized()
 {
     gainSlider.setBounds(getWidth() / 2 - 50, getHeight() / 2 - 75, 100, 150);
 
+}
+
+void SimpleGainAudioProcessorEditor::sliderValueChanged(juce::Slider* slider)
+{
+    if(slider == &gainSlider)
+    {
+        audioProcessor.mGain = gainSlider.getValue();
+    }
 }
